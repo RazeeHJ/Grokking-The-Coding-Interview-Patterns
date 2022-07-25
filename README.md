@@ -5,7 +5,7 @@
 ### 1. Pattern: Sliding Window
 
 1. Introduction
-2. Maximum Sum Subarray of Size K (easy)
+2. Maximum Sum Subarray of Size K (easy) [Educative.io](https://www.educative.io/courses/grokking-the-coding-interview/JPKr0kqLGNP)
 3. Smallest Subarray with a given sum (easy) [Educative.io](https://www.educative.io/courses/grokking-the-coding-interview/7XMlMEQPnnQ)
 4. Longest Substring with K Distinct Characters (medium) [Educative.io](https://www.educative.io/courses/grokking-the-coding-interview/YQQwQMWLx80)
 5. Fruits into Baskets (medium) [LeetCode](https://leetcode.com/problems/fruit-into-baskets/)

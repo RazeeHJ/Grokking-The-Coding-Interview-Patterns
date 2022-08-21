@@ -25,7 +25,7 @@ func findAverage(k: Int, arr: [Int]) -> [Double] {
     return result
 }
 
-findAverage(k: 5, arr: [1, 3, 2, 6, -1, 4, 1, 8, 2, 5, 5])
+//findAverage(k: 5, arr: [1, 3, 2, 6, -1, 4, 1, 8, 2, 5, 5])
 
 /// Problem
 /// Maximum Sum Subarray of Size K (easy)
@@ -61,8 +61,8 @@ func findMaxSumSubArray(k: Int, arr: [Int]) -> Int {
     return maxSum
 }
 
-findMaxSumSubArray(k: 3, arr: [2, 1, 5, 1, 3, 2])
-findMaxSumSubArray(k: 2, arr: [2, 3, 4, 1, 5])
+//findMaxSumSubArray(k: 3, arr: [2, 1, 5, 1, 3, 2])
+//findMaxSumSubArray(k: 2, arr: [2, 3, 4, 1, 5])
 
 /// Smallest Subarray with a Greater Sum (easy)
 ///
@@ -103,9 +103,9 @@ func findMinSubArray(s: Int, arr: [Int]) -> Int {
     return result
 }
 
-findMinSubArray(s: 7, arr: [2, 1, 5, 2, 3, 2])
-findMinSubArray(s: 7, arr: [2, 1, 5, 2, 8])
-findMinSubArray(s: 8, arr: [3, 4, 1, 1, 6])
+//findMinSubArray(s: 7, arr: [2, 1, 5, 2, 3, 2])
+//findMinSubArray(s: 7, arr: [2, 1, 5, 2, 8])
+//findMinSubArray(s: 8, arr: [3, 4, 1, 1, 6])
 
 /// Longest Substring with K Distinct Characters (medium)
 /// Problem Statement
@@ -132,7 +132,7 @@ func findLength(str: String, k: Int) -> Int {
     let arr = Array(str)
     var windowStart = 0
     var letters: [Character: Int] = [:]
-    var maxLenght = 0
+    var maxLength = 0
     
     for windowEnd in 0..<arr.count {
         if let key = letters[arr[windowEnd]] {
@@ -151,12 +151,73 @@ func findLength(str: String, k: Int) -> Int {
             windowStart += 1
         }
         
-        maxLenght = max(maxLenght, windowEnd - windowStart + 1)
+        maxLength = max(maxLength, windowEnd - windowStart + 1)
     }
     
-    return maxLenght
+    return maxLength
 }
 
-findLength(str: "araaci", k: 2)
-findLength(str: "araaci", k: 1)
-findLength(str: "cbbebi", k: 3)
+//findLength(str: "araaci", k: 2)
+//findLength(str: "araaci", k: 1)
+//findLength(str: "cbbebi", k: 3)
+
+/// Fruits into Baskets (medium)
+/// Problem Statement
+/// You are visiting a farm to collect fruits. The farm has a single row of fruit trees. You will be given two baskets, and your goal is to pick as many fruits as possible to be placed in the given baskets.
+/// You will be given an array of characters where each character represents a fruit tree. The farm has following restrictions:
+/// Each basket can have only one type of fruit. There is no limit to how many fruit a basket can hold.
+/// You can start with any tree, but you can’t skip a tree once you have started.
+/// You will pick exactly one fruit from every tree until you cannot, i.e., you will stop when you have to pick from a third fruit type.
+/// Write a function to return the maximum number of fruits in both baskets.
+///
+/// Example 1:
+/// Input: Fruit=['A', 'B', 'C', 'A', 'C']
+/// Output: 3
+/// Explanation: We can put 2 'C' in one basket and one 'A' in the other from the subarray ['C', 'A', 'C']
+///
+/// Example 2:
+/// Input: Fruit = ['A', 'B', 'C', 'B', 'B', 'C']
+/// Output: 5
+/// Explanation: We can put 3 'B' in one basket and two 'C' in the other basket. This can be done if we start with the second letter: ['B', 'C', 'B', 'B', 'C']
+///
+
+func findLength(arr: [Character]) -> Int {
+    var windowStart = 0
+    var basket: [Character: Int] = [:]
+    var maxLength = 0
+    
+    for i in 0..<arr.count {
+        if let value = basket[arr[i]] {
+            basket[arr[i]] = value + 1
+        } else {
+            basket[arr[i]] = 1
+        }
+        
+        while (basket.count > 2) {
+            if let value = basket[arr[windowStart]] {
+                basket[arr[windowStart]] = value - 1
+                
+                if value - 1 == 0 {
+                    basket[arr[windowStart]] = nil
+                }
+            }
+            
+            windowStart += 1
+        }
+        print(basket)
+        maxLength = max(maxLength, i - windowStart + 1)
+    }
+    
+    return maxLength
+}
+
+/// Time Complexity
+/// The above algorithm’s time complexity will be O(N), where ‘N’ is the number of characters in the input array. The outer 'for' loop runs for all characters, and the inner 'while' loop processes each character only once; therefore, the time complexity of the algorithm will be O(N+N), which is asymptotically equivalent to O(N).
+/// Space Complexity
+/// The algorithm runs in constant space O(1)O(1) as there can be a maximum of three types of fruits stored in the frequency map.
+///
+/// Similar Problems
+/// Problem 1: Longest Substring with at most 2 distinct characters
+/// Given a string, find the length of the longest substring in it with at most two distinct characters.
+/// 
+//findLength(arr: ["A", "B", "C", "B", "B", "C"])

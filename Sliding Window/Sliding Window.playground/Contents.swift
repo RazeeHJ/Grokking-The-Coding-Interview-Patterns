@@ -25,7 +25,7 @@ func findAverage(k: Int, arr: [Int]) -> [Double] {
     return result
 }
 
-//findAverage(k: 5, arr: [1, 3, 2, 6, -1, 4, 1, 8, 2, 5, 5])
+findAverage(k: 5, arr: [1, 3, 2, 6, -1, 4, 1, 8, 2, 5, 5])
 
 /// Problem
 /// Maximum Sum Subarray of Size K (easy)
@@ -61,8 +61,8 @@ func findMaxSumSubArray(k: Int, arr: [Int]) -> Int {
     return maxSum
 }
 
-//findMaxSumSubArray(k: 3, arr: [2, 1, 5, 1, 3, 2])
-//findMaxSumSubArray(k: 2, arr: [2, 3, 4, 1, 5])
+findMaxSumSubArray(k: 3, arr: [2, 1, 5, 1, 3, 2])
+findMaxSumSubArray(k: 2, arr: [2, 3, 4, 1, 5])
 
 /// Smallest Subarray with a Greater Sum (easy)
 ///
@@ -103,9 +103,9 @@ func findMinSubArray(s: Int, arr: [Int]) -> Int {
     return result
 }
 
-//findMinSubArray(s: 7, arr: [2, 1, 5, 2, 3, 2])
-//findMinSubArray(s: 7, arr: [2, 1, 5, 2, 8])
-//findMinSubArray(s: 8, arr: [3, 4, 1, 1, 6])
+findMinSubArray(s: 7, arr: [2, 1, 5, 2, 3, 2])
+findMinSubArray(s: 7, arr: [2, 1, 5, 2, 8])
+findMinSubArray(s: 8, arr: [3, 4, 1, 1, 6])
 
 /// Longest Substring with K Distinct Characters (medium)
 /// Problem Statement
@@ -157,9 +157,9 @@ func findLength(str: String, k: Int) -> Int {
     return maxLength
 }
 
-//findLength(str: "araaci", k: 2)
-//findLength(str: "araaci", k: 1)
-//findLength(str: "cbbebi", k: 3)
+findLength(str: "araaci", k: 2)
+findLength(str: "araaci", k: 1)
+findLength(str: "cbbebi", k: 3)
 
 /// Fruits into Baskets (medium)
 /// Problem Statement
@@ -185,29 +185,29 @@ func findLength(arr: [Character]) -> Int {
     var windowStart = 0
     var basket: [Character: Int] = [:]
     var maxLength = 0
-    
+
     for i in 0..<arr.count {
         if let value = basket[arr[i]] {
             basket[arr[i]] = value + 1
         } else {
             basket[arr[i]] = 1
         }
-        
+
         while (basket.count > 2) {
             if let value = basket[arr[windowStart]] {
                 basket[arr[windowStart]] = value - 1
-                
+
                 if value - 1 == 0 {
                     basket[arr[windowStart]] = nil
                 }
             }
-            
+
             windowStart += 1
         }
         print(basket)
         maxLength = max(maxLength, i - windowStart + 1)
     }
-    
+
     return maxLength
 }
 
@@ -219,5 +219,46 @@ func findLength(arr: [Character]) -> Int {
 /// Similar Problems
 /// Problem 1: Longest Substring with at most 2 distinct characters
 /// Given a string, find the length of the longest substring in it with at most two distinct characters.
-/// 
-//findLength(arr: ["A", "B", "C", "B", "B", "C"])
+///
+
+// findLength(arr: ["A", "B", "C", "B", "B", "C"])
+
+/// Longest Substring with Distinct Characters (hard)
+/// Problem Statement
+/// Given a string, find the length of the longest substring, which has all distinct characters.
+///
+/// Example 1:
+/// Input: String="aabccbb"
+/// Output: 3
+/// Explanation: The longest substring with distinct characters is "abc".
+///
+/// Example 2:
+/// Input: String="abbbb"
+/// Output: 2
+/// Explanation: The longest substring with distinct characters is "ab".
+///
+/// Example 3:
+/// Input: String="abccde"
+/// Output: 3
+/// Explanation: Longest substrings with distinct characters are "abc" & "cde".
+
+func findLength(arr: [Character]) -> Int {
+    var windowStart = 0
+    var dict: [Character: Int] = [:]
+    var maxLength = Int.min
+    
+    for i in 0..<arr.count {
+        let rightChar = arr[i]
+        if let indx = dict[rightChar] {
+            windowStart = max(windowStart, indx + 1)
+        }
+        
+        dict[rightChar] = i
+        maxLength = max(maxLength, i-windowStart+1)
+    }
+    return maxLength
+}
+
+findLength(arr: ["a","a","b","c","c","b","b"])
+findLength(arr: ["a","b","b","b","b"])
+findLength(arr: ["a","b","c","c","d","e"])
